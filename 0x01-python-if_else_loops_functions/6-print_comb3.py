@@ -1,12 +1,5 @@
 #!/usr/bin/python3
-for i in range(0, 100, 1):
-    f = int(i / 10)
-    kl = int(i % 10)
-    if f ==kl:
-        continue
-    if f > kl:
-        continue
-    if i == 89:
-        print("{}{}".format(f, kl))
-        break
-    print("{}{}, ".format(f, kl), end="")
+for num in range(1, 89):
+    if (num % 10 > num / 10):
+        print('{:02d}, '.format(num), end='')
+print(89)
