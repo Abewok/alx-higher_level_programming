@@ -1,81 +1,56 @@
 #!/usr/bin/python3
-"""Square module."""
-
-
 class Square:
-    """Defines a square."""
-
-    def __str__(self):
-        self.my_print()
-
     def __init__(self, size=0, position=(0, 0)):
-        """Constructor.
-
-        Args:
-            size: Length of a side of the square.
-            position: Position of the square.
-        """
         self.size = size
         self.position = position
 
+    # Size property
     @property
     def size(self):
-        """Property for the length of a side of this square.
-
-        Raises:
-            TypeError: If size is not an integer.
-            ValueError: If size is less than 0.
-        """
         return self.__size
 
+    # Size setter modifies
     @size.setter
     def size(self, value):
-        if not isinstance(value, int):
+        if type(value) != int:
             raise TypeError('size must be an integer')
-        if value < 0:
+        elif value < 0:
             raise ValueError('size must be >= 0')
-        self.__size = value
+        else:
+            self.__size = value
 
+    # Position property
     @property
     def position(self):
-        """Property for the position of this square.
-
-        Raises:
-            TypeError: If value is not tuple of 2 positive integers.
-        """
         return self.__position
 
+    # Position setter modifies
     @position.setter
     def position(self, value):
-        if not isinstance(value, tuple) or len(value) != 2 or \
-         len([x for x in value if isinstance(x, int) and x >= 0]) != 2:
-            raise TypeError('position must be a tuple of 2 positive integers')
+        message = 'position must be a tuple of 2 positive integers'
+        if type(value) != tuple or len(value) != 2:
+            raise TypeError(message)
+
+        for items in value:
+            if type(items) != int or items < 0:
+                raise TypeError(message)
+
         self.__position = value
 
+    # Functions
     def area(self):
-        """Area of this square.
-
-        Returns:
-            The size squared.
-        """
         return self.__size ** 2
 
-    def my_sprint(self):
-        """Returns string representation of this square."""
-        ret = ""
-        if not self.size:
-            return "\n"
-
-        for i in range(self.position[1]):
-                ret += "\n"
-        for i in range(self.size):
-            for j in range(self.position[0]):
-                ret += " "
-            for j in range(self.size):
-                ret += "#"
-            ret += "\n"
-        return ret
-
     def my_print(self):
-        """Prints this square."""
-        print(self.my_sprint(), end="")
+        size = self.__size
+        nl = self.__position[1]
+        ws = self.__position[0]
+
+        if size == 0:
+            print()
+
+        for newlines in range(nl):
+            print()
+
+        for row in range(size):
+            print((' ' * ws) + ('#' * size))
