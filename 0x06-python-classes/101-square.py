@@ -1,82 +1,106 @@
 #!/usr/bin/python3
-"""Square module."""
+"""creates class Square."""
 
 
 class Square:
-    """Defines a square."""
-
-    def __str__(self):
-        """Returns string representation."""
-        return self.my_sprint()[:-1]
-
+    """ Square class defined
+        Attributes:
+            size (int): Size of square
+            position (tuple): position of space and new lines
+    """
     def __init__(self, size=0, position=(0, 0)):
-        """Constructor.
-
+        """initializes
         Args:
-            size: Length of a side of the square.
-            position: Position of the square.
+            size (int): size
+            postion(tuple): postion
+        Returns:
+            None
         """
+
         self.size = size
         self.position = position
 
     @property
     def size(self):
-        """Property for the length of a side of this square.
-
-        Raises:
-            TypeError: If size is not an integer.
-            ValueError: If size is less than 0.
+        """
+        getter of size
+        Return:
+            Size of square
         """
         return self.__size
 
     @size.setter
     def size(self, value):
-        if not isinstance(value, int):
-            raise TypeError('size must be an integer')
-        if value < 0:
-            raise ValueError('size must be >= 0')
-        self.__size = value
+        """
+        Setter of size
+        Args:
+            value (int): size
+        Raises
+            TypeError: if size is not int
+            ValueError: size less than 0
+        Returns:
+            None
+        """
+        if type(value) != int:
+            raise TypeError("size must be an integer")
+        elif value < 0:
+            raise ValueError("size must be >= 0")
+        else:
+            self.__size = value
 
     @property
     def position(self):
-        """Property for the position of this square.
-
-        Raises:
-            TypeError: If value is not tuple of 2 positive integers.
+        """
+        get postion attribute
         """
         return self.__position
 
     @position.setter
     def position(self, value):
-        if not isinstance(value, tuple) or len(value) != 2 or \
-         len([x for x in value if isinstance(x, int) and x >= 0]) != 2:
-            raise TypeError('position must be a tuple of 2 positive integers')
+        """
+            setter of position
+        Args:
+            value (tuple): position of the square in 2D space
+        Returns:
+            None
+        """
+        if len(value) != 2 or type(value) != tuple:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if type(value[0]) != int or value[0] < 0:
+            raise TypeError("position must be a tuple of 2 positive integers")
+        if type(value[1]) != int or value[1] < 0:
+            raise TypeError("position must be a tuple of 2 positive integers")
         self.__position = value
 
     def area(self):
-        """Area of this square.
-
-        Returns:
-            The size squared.
+        """
+        get area
+        Return:
+            area (int)
         """
         return self.__size ** 2
 
-    def my_sprint(self):
-        """Returns string representation of this square."""
-        ret = ""
-        if not self.size:
-            return "\n"
-
-        for i in range(self.position[1]):
-                ret += "\n"
-        for i in range(self.size):
-            for j in range(self.position[0]):
-                ret += " "
-            for j in range(self.size):
-                ret += "#"
-            ret += "\n"
-        return ret
-
     def my_print(self):
-        """Prints this square."""
-        print(self.my_sprint(), end="")
+        """
+        print a square
+        Returns:
+            None
+        """
+        if self.size == 0:
+            print()
+        else:
+            print('\n'*self.__position[1], end='')
+            for i in range(self.__size):
+                print(' '*self.__position[0], end='')
+                print('#'*self.__size)
+
+    def __str__(self):
+        """
+        defining printing behavior of the class
+        """
+        if self.__size == 0:
+            return ''
+        new_lines = '\n' * self.position[1]
+        spaces = ' ' * self.position[0]
+        hashes = '#' * self.size
+        return new_lines + '\n'.join(spaces + hashes for e in range(self.size))
