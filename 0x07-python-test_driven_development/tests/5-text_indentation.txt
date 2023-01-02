@@ -1,60 +1,51 @@
-The ``text_indentation`` module
-==========================
+>>> text_ind = __import__('5-text_indentation').text_indentation
 
-Using ``text_indentation``
----------------------
 
-First import ``text_indentation`` from the ``text_indentation`` module:
+#TypeError
 
-	>>> text_indentation = __import__('5-text_indentation').text_indentation
+    ### text must be a string
 
-Now use it:
+    >>> text_ind()
+    Traceback (most recent call last):
+    TypeError:
 
-	>>> text_indentation("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quonam modo? Utrum igitur tibi: litteram videor an totas paginas commovere")
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-	<BLANKLINE>
-	Quonam modo?
-	<BLANKLINE>
-	Utrum igitur tibi:
-	<BLANKLINE>
-	litteram videor an totas paginas commovere
+    >>> text_ind(None)
+    Traceback (most recent call last):
+    TypeError: text must be a string
 
-	>>> text_indentation("Lorem:")
-	Lorem:
-	<BLANKLINE>
+    >>> text_ind(True)
+    Traceback (most recent call last):
+    TypeError: text must be a string
 
-	>>> text_indentation("Betty")
-	Betty
+    >>> text_ind('0')
+    Traceback (most recent call last):
+    TypeError: text must be a string
 
-	>>> text_indentation(":Betty")
-	:
-	<BLANKLINE>
-	Betty
+    >>> text_ind(1024)
+    Traceback (most recent call last):
+    TypeError: text must be a string
 
-	>>> text_indentation(":")
-	:
-	<BLANKLINE>
 
-	>>> text_indentation(":.")
-	:
-	<BLANKLINE>
-	.
-	<BLANKLINE>
 
-	>>> text_indentation(" ")
+#General Case
 
-	>>> text_indentation("")
+    >>> text_ind(".")
+    <BLANKLINE>
 
-	>>> text_indentation(" .")
-	.
-	<BLANKLINE>
+    >>> text_ind("?")
+    <BLANKLINE>
 
-	>>> text_indentation(-2)
-	Traceback (most recent call last):
-	...
-	TypeError: text must be a string
+    >>> text_ind(":")
+    <BLANKLINE>
 
-	>>> text_indentation(None)
-	Traceback (most recent call last):
-	...
-	TypeError: text must be a string
+    >>> text_ind(":a:")
+    <BLANKLINE>
+    a
+    <BLANKLINE>
+
+    >>> text_ind(".Holberton:School?")
+    <BLANKLINE>
+    Holberton
+    <BLANKLINE>
+    School
+    <BLANKLINE>
