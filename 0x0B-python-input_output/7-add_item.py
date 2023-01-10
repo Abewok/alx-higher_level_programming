@@ -8,13 +8,16 @@ save_to_json_file = __import__("5-save_to_json_file").save_to_json_file
 load_from_json_file = __import__("6-load_from_json_file").load_from_json_file
 
 filename = "add_item.json"
+if not exists(filename):
+    open(filename, "w", encoding="utf-8")
 
-try:
-    json_list = load_from_json_file(filename)
-except:
-    json_list = []
+saved_list = load_from_json_file(filename)
+to_save_list = []
 
-for arg in argv[1:]:
-    json_list.append(arg)
+if saved_list is not None:
+    for e in saved_list:
+        to_save_list.append(e)
 
-save_to_json_file(json_list, filename)
+for i in range(1, len(sys.argv)):
+    to_save_list.append(sys.argv[i])
+
