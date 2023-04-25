@@ -1,9 +1,10 @@
 #!/usr/bin/node
+// Writes a string to a file
 
-const fs = require('fs');
+const writeFile = require('fs').writeFile;
+const filename = process.argv[2];
+const data = process.argv[3];
 
-fs.writeFile(process.argv[2], process.argv[3], 'utf8', function (err) {
-  if (err) {
-    console.log(err);
-  }
+writeFile(filename, data, 'utf8', (error) => {
+  if (error) throw error;
 });
